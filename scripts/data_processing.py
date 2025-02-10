@@ -104,6 +104,21 @@ def categorize_files(file_list: list) -> tuple:
 
     return files_to_keep, files_to_remove
 
+def load_csv_files(file_list: list) -> dict:
+    """Loads CSV files into a dictionary of pandas DataFrames.
+
+    Args:
+        file_list (list): List of CSV file paths to load.
+
+    Returns:
+        dict: Dictionary where keys are filenames and values are DataFrames.
+    """
+    dfs = {}
+    for file in file_list:
+        file_name = file.stem  # Remove ".csv" extension
+        dfs[file_name] = pd.read_csv(file)
+    return dfs
+
 
 def main():
     """Main function to execute the Fitbit data cleaning process."""
@@ -126,6 +141,11 @@ def main():
 
     # Categorize files into 'keep' and 'remove'
     files_to_keep, _ = categorize_files(all_files)
+
+    # Load only the necessary files
+    dfs = load_csv_files(files_to_keep)
+
+    logging.info(dfs)
 
 
 if __name__ == "__main__":
