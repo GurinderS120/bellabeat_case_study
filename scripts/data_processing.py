@@ -2,7 +2,7 @@
 
 This script:
 1. Compares folder structures to detect common & unique files.
-
+2. Identifies and loads only relevant CSV files.
 
 """
 
@@ -71,6 +71,16 @@ def compare_data_folders(folder1: Path, folder2: Path) -> dict:
         "unique_to_folder2": files2 - files1,
     }
 
+def list_all_files(directory: Path) -> list:
+    """Lists all CSV files in a directory and its subdirectories.
+
+    Args:
+        directory (Path): Root data directory.
+
+    Returns:
+        list: List of all file paths.
+    """
+    return list(directory.glob("**/*.csv"))
 
 def main():
     """Main function to execute the Fitbit data cleaning process."""
@@ -87,6 +97,9 @@ def main():
 
     logging.info("\nFiles Only in Folder 2:")
     logging.info("\n".join(folder_comparison["unique_to_folder2"]) if folder_comparison["unique_to_folder2"] else "None")
+
+    # List all files
+    all_files = list_all_files(RAW_DATA_DIR)
 
 
 if __name__ == "__main__":
