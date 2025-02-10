@@ -1,0 +1,9 @@
+# Ignore virtual environment
+venv/
+
+# Ignore data files (optional, if you don’t want to upload raw data)
+data/raw/
+data/processed/
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
