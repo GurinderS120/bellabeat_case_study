@@ -111,12 +111,17 @@ def load_csv_files(file_list: list) -> dict:
         file_list (list): List of CSV file paths to load.
 
     Returns:
-        dict: Dictionary where keys are filenames and values are DataFrames.
+        dict: Dictionary where keys are modified filenames and values are DataFrames.
     """
     dfs = {}
     for file in file_list:
-        file_name = file.stem  # Remove ".csv" extension
+        folder_name = file.parts[-2]  # Get the parent folder name
+        time_period = "3_12" if "3.12.16-4.11.16" in folder_name else "4_12"
+        
+        file_name = f"{file.stem}_{time_period}"  # Append time period to filename
+        
         dfs[file_name] = pd.read_csv(file)
+
     return dfs
 
 
