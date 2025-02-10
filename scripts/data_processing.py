@@ -82,6 +82,29 @@ def list_all_files(directory: Path) -> list:
     """
     return list(directory.glob("**/*.csv"))
 
+def categorize_files(file_list: list) -> tuple:
+    """Categorizes files into 'keep' and 'remove' groups.
+
+    Args:
+        file_list (list): List of file paths.
+
+    Returns:
+        tuple: (files_to_keep, files_to_remove)
+    """
+    files_to_keep = [f for f in file_list if f.name in KEEP_FILES]
+    files_to_remove = [f for f in file_list if f.name in REMOVE_FILES]
+
+    logging.info("Keeping These Files:")
+    for file in files_to_keep:
+        logging.info(file)
+
+    logging.info("\nRemoving These Files:")
+    for file in files_to_remove:
+        logging.info(file)
+
+    return files_to_keep, files_to_remove
+
+
 def main():
     """Main function to execute the Fitbit data cleaning process."""
     logging.info("Fitbit Data Cleaning Started.")
@@ -100,6 +123,9 @@ def main():
 
     # List all files
     all_files = list_all_files(RAW_DATA_DIR)
+
+    # Categorize files into 'keep' and 'remove'
+    files_to_keep, _ = categorize_files(all_files)
 
 
 if __name__ == "__main__":
