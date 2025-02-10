@@ -1,6 +1,8 @@
 """Fitbit Data Cleaning Script.
 
 This script:
+1. Compares folder structures to detect common & unique files.
+
 
 """
 
@@ -46,9 +48,45 @@ REMOVE_FILES = {
     "minuteCaloriesWide_merged.csv"
 }
 
+def compare_data_folders(folder1: Path, folder2: Path) -> dict:
+    """Compares two data folders and identifies common and unique files.
+
+    Args:
+        folder1 (Path): First data folder path.
+        folder2 (Path): Second data folder path.
+
+    Returns:
+        dict: A dictionary containing common and unique files.
+    """
+    if not folder1.exists() or not folder2.exists():
+        logging.error("One or both data directories do not exist!")
+        return {}
+
+    files1 = {f.name for f in folder1.iterdir() if f.is_file()}
+    files2 = {f.name for f in folder2.iterdir() if f.is_file()}
+
+    return {
+        "common_files": files1.intersection(files2),
+        "unique_to_folder1": files1 - files2,
+        "unique_to_folder2": files2 - files1,
+    }
+
+
 def main():
     """Main function to execute the Fitbit data cleaning process."""
     logging.info("Fitbit Data Cleaning Started.")
+
+    # Compare file structures
+    folder_comparison = compare_data_folders(FOLDER1, FOLDER2)
+
+    logging.info("\nCommon Files in Both Folders:")
+    logging.info("\n".join(folder_comparison["common_files"]) if folder_comparison["common_files"] else "None")
+
+    logging.info("\nFiles Only in Folder 1:")
+    logging.info("\n".join(folder_comparison["unique_to_folder1"]) if folder_comparison["unique_to_folder1"] else "None")
+
+    logging.info("\nFiles Only in Folder 2:")
+    logging.info("\n".join(folder_comparison["unique_to_folder2"]) if folder_comparison["unique_to_folder2"] else "None")
 
 
 if __name__ == "__main__":
