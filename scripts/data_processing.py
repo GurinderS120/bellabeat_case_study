@@ -145,8 +145,6 @@ def main():
     # Load only the necessary files
     dfs = load_csv_files(files_to_keep)
 
-    logging.info(dfs)
-
 
 if __name__ == "__main__":
     main()
