@@ -274,7 +274,7 @@ def main():
     # Convert sleep data from minute format to day format
     convert_minute_sleep_to_daily(dfs)
 
-    # Convert hearrate data from seconds format to day format
+    # Convert heartrate data from seconds format to day format
     convert_second_heartrate_to_daily(dfs)
 
     # Convert weight data from minute format to day format
