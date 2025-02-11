@@ -24,18 +24,13 @@ OUTPUT_FILE = PROCESSED_DATA_DIR / "merged_fitbit_data.csv"
 FOLDER1 = RAW_DATA_DIR / "Fitabase Data 3.12.16-4.11.16"
 FOLDER2 = RAW_DATA_DIR / "Fitabase Data 4.12.16-5.12.16"
 
-# Files to keep
+# Files to keep - some files may get dropped upon further data exploration
 KEEP_FILES = {
     "dailyActivity_merged.csv",
     "sleepDay_merged.csv",
-    "minuteIntensitiesNarrow_merged.csv",
-    "minuteStepsNarrow_merged.csv",
-    "minuteCaloriesNarrow_merged.csv",
     "heartrate_seconds_merged.csv",
-    "hourlySteps_merged.csv",
-    "hourlyCalories_merged.csv",
-    "hourlyIntensities_merged.csv",
-    "weightLogInfo_merged.csv"
+    "weightLogInfo_merged.csv",
+    "minuteSleep_merged.csv",
 }
 
 # Files to remove
@@ -45,7 +40,14 @@ REMOVE_FILES = {
     "dailyIntensities_merged.csv",
     "minuteIntensitiesWide_merged.csv",
     "minuteStepsWide_merged.csv",
-    "minuteCaloriesWide_merged.csv"
+    "minuteCaloriesWide_merged.csv",
+    "minuteIntensitiesNarrow_merged.csv",
+    "minuteStepsNarrow_merged.csv",
+    "minuteCaloriesNarrow_merged.csv",
+    "hourlySteps_merged.csv",
+    "hourlyCalories_merged.csv",
+    "hourlyIntensities_merged.csv",
+    "minuteMETsNarrow_merged.csv",
 }
 
 def compare_data_folders(folder1: Path, folder2: Path) -> dict:
