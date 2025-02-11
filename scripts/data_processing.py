@@ -128,7 +128,7 @@ def load_csv_files(file_list: list) -> dict:
 
     return dfs
 
-def standardize_date_format(dfs: Dict[str, pd.DataFrame]) -> Dict[str, pd.DataFrame]:
+def standardize_date_format(dfs: Dict[str, pd.DataFrame]):
     """
     Converts the second column (assumed to be a date column) in each DataFrame 
     to 'yyyy-mm-dd' format.
@@ -136,8 +136,6 @@ def standardize_date_format(dfs: Dict[str, pd.DataFrame]) -> Dict[str, pd.DataFr
     Args:
         dfs (dict): Dictionary of DataFrames.
 
-    Returns:
-        dict: Updated dictionary with standardized date formats.
     """
     for _, df in dfs.items():
         if df.shape[1] > 1:  # Ensure at least two columns exist
@@ -154,7 +152,7 @@ def convert_minute_sleep_to_daily(dfs: Dict[str, pd.DataFrame]):
 
     Args:
         dfs (Dict[str, pd.DataFrame]): Dictionary of DataFrames.
-        
+
     """
     if "minuteSleep_merged_3_12" in dfs:
         df_minute_sleep = dfs["minuteSleep_merged_3_12"].copy()
@@ -212,7 +210,7 @@ def main():
     dfs = load_csv_files(files_to_keep)
 
     # Standardize all date columns into yyyy-mm-dd format
-    dfs = standardize_date_format(dfs)
+    standardize_date_format(dfs)
 
     # Convert sleep data from minute format to day format
     convert_minute_sleep_to_daily(dfs)
