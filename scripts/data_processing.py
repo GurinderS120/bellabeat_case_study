@@ -129,22 +129,21 @@ def load_csv_files(file_list: list) -> dict:
 
     return dfs
 
-def standardize_date_format(dfs: Dict[str, pd.DataFrame]):
+def standardize_date_format(dfs: Dict[str, pd.DataFrame]) -> None:
     """
     Converts the second column (assumed to be a date column) in each DataFrame 
     to 'yyyy-mm-dd' format.
 
-    Args:
-        dfs (dict): Dictionary of DataFrames.
+    Modifies dfs in-place.
 
+    Args:
+        dfs (Dict[str, pd.DataFrame]): Dictionary of DataFrames.
     """
     for _, df in dfs.items():
         if df.shape[1] > 1:  # Ensure at least two columns exist
             date_col = df.columns[1]  # Get the second column (index 1)
             df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
             df[date_col] = df[date_col].dt.strftime("%Y-%m-%d")
-    
-    return dfs
 
 def convert_minute_sleep_to_daily(dfs: Dict[str, pd.DataFrame]) -> None:
     """
