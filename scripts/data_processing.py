@@ -4,8 +4,9 @@ This script:
 1. Compares folder structures to detect common & unique files.
 2. Identifies and loads only relevant CSV files.
 3. Standardizes date and time formats.
-4. Converts time-based data (minute & second-level) to a daily summary.
-5. Merges related datasets and consolidates them into a unified dataset.
+4. Standardizes column names.
+5. Converts time-based data (minute & second-level) to a daily summary.
+6. Merges related datasets and consolidates them into a unified dataset.
 
 """
 
