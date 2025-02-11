@@ -146,7 +146,7 @@ def standardize_date_format(dfs: Dict[str, pd.DataFrame]):
     
     return dfs
 
-def convert_minute_sleep_to_daily(dfs: Dict[str, pd.DataFrame]):
+def convert_minute_sleep_to_daily(dfs: Dict[str, pd.DataFrame]) -> None:
     """
     Converts 'minuteSleep_merged_3_12' to daily sleep format like 'sleepDay_merged_4_12'
     and removes unnecessary columns.
@@ -185,7 +185,7 @@ def convert_minute_sleep_to_daily(dfs: Dict[str, pd.DataFrame]):
     dfs.pop("minuteSleep_merged_3_12", None)
     dfs.pop("minuteSleep_merged_4_12", None)
 
-def convert_second_heartrate_to_daily(dfs: Dict[str, pd.DataFrame]):
+def convert_second_heartrate_to_daily(dfs: Dict[str, pd.DataFrame]) -> None:
     """
     Converts 'heartrate_seconds_merged_3_12' and 'heartrate_seconds_merged_4_12'
     into daily average heart rate format, renames them to 'heartrateDay_merged',
