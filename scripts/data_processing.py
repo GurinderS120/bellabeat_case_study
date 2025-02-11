@@ -3,6 +3,7 @@
 This script:
 1. Compares folder structures to detect common & unique files.
 2. Identifies and loads only relevant CSV files.
+3. Standardizes date and time formats.
 
 """
 
@@ -126,6 +127,25 @@ def load_csv_files(file_list: list) -> dict:
 
     return dfs
 
+def standardize_date_format(dfs):
+    """
+    Converts the second column (assumed to be a date column) in each DataFrame 
+    to 'yyyy-mm-dd' format.
+
+    Args:
+        dfs (dict): Dictionary of DataFrames.
+
+    Returns:
+        dict: Updated dictionary with standardized date formats.
+    """
+    for _, df in dfs.items():
+        if df.shape[1] > 1:  # Ensure at least two columns exist
+            date_col = df.columns[1]  # Get the second column (index 1)
+            df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
+            df[date_col] = df[date_col].dt.strftime("%Y-%m-%d")
+    
+    return dfs
+
 
 def main():
     """Main function to execute the Fitbit data cleaning process."""
@@ -152,6 +172,10 @@ def main():
     # Load only the necessary files
     dfs = load_csv_files(files_to_keep)
 
+    # Standardize all date columns into yyyy-mm-dd format
+    dfs = standardize_date_format(dfs)
+
+    logging.info("Standardized data: %s", dfs)
 
 if __name__ == "__main__":
     main()
