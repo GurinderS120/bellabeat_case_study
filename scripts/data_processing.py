@@ -4,6 +4,7 @@ This script:
 1. Compares folder structures to detect common & unique files.
 2. Identifies and loads only relevant CSV files.
 3. Standardizes date and time formats.
+4. Converts time-based data (minute & second-level) to a daily summary.
 
 """
 
@@ -184,6 +185,37 @@ def convert_minute_sleep_to_daily(dfs: Dict[str, pd.DataFrame]):
     dfs.pop("minuteSleep_merged_3_12", None)
     dfs.pop("minuteSleep_merged_4_12", None)
 
+def convert_second_heartrate_to_daily(dfs: Dict[str, pd.DataFrame]):
+    """
+    Converts 'heartrate_seconds_merged_3_12' and 'heartrate_seconds_merged_4_12'
+    into daily average heart rate format, renames them to 'heartrateDay_merged',
+    and removes the original second-level files.
+
+    Modifies dfs in-place.
+
+    Args:
+        dfs (Dict[str, pd.DataFrame]): Dictionary of DataFrames.
+    """
+    rename_map = {
+        "heartrate_seconds_merged_3_12": "heartrateDay_merged_3_12",
+        "heartrate_seconds_merged_4_12": "heartrateDay_merged_4_12"
+    }
+
+    for old_key, new_key in rename_map.items():
+        if old_key in dfs:
+            df = dfs[old_key].copy()
+            
+            # Aggregate to get the daily average heart rate per user
+            df = df.groupby(["Id", "Time"], as_index=False).agg(
+                AverageHeartRate=("Value", "mean")
+            )
+
+            # Store in dfs with the new name
+            dfs[new_key] = df
+
+            # Remove the old file
+            del dfs[old_key]
+
 def main():
     """Main function to execute the Fitbit data cleaning process."""
     logging.info("Fitbit Data Cleaning Started.")
@@ -214,6 +246,9 @@ def main():
 
     # Convert sleep data from minute format to day format
     convert_minute_sleep_to_daily(dfs)
+
+    # Convert hearrate data from seconds format to day format
+    convert_second_heartrate_to_daily(dfs)
 
     logging.info("Standardized data: %s", dfs)
 
