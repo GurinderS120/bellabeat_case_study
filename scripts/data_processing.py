@@ -214,7 +214,7 @@ def convert_second_heartrate_to_daily(dfs: Dict[str, pd.DataFrame]) -> None:
 
             # Aggregate to get the daily average heart rate per user
             df = df.groupby(["Id", date_col], as_index=False).agg(
-                AverageHeartRate=("Value", "mean")
+                AvgHeartRate=("Value", "mean")
             )
 
             # Store in dfs with the new name
@@ -246,7 +246,7 @@ def convert_minute_weight_to_daily(dfs: Dict[str, pd.DataFrame]) -> None:
             df = df.groupby(["Id", date_col], as_index=False).agg(
                 AvgWeightKg=("WeightKg", "mean"),
                 AvgWeightPounds=("WeightPounds", "mean"),
-                AverageBMI=("BMI", "mean")
+                AvgBMI=("BMI", "mean")
             )
 
             # Save back to dfs
