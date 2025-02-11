@@ -12,6 +12,7 @@ import glob
 import logging
 import pandas as pd
 from pathlib import Path
+from typing import Dict
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
@@ -127,7 +128,7 @@ def load_csv_files(file_list: list) -> dict:
 
     return dfs
 
-def standardize_date_format(dfs):
+def standardize_date_format(dfs: Dict[str, pd.DataFrame]) -> Dict[str, pd.DataFrame]:
     """
     Converts the second column (assumed to be a date column) in each DataFrame 
     to 'yyyy-mm-dd' format.
@@ -145,7 +146,6 @@ def standardize_date_format(dfs):
             df[date_col] = df[date_col].dt.strftime("%Y-%m-%d")
     
     return dfs
-
 
 def main():
     """Main function to execute the Fitbit data cleaning process."""
