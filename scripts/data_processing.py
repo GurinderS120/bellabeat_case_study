@@ -147,6 +147,45 @@ def standardize_date_format(dfs: Dict[str, pd.DataFrame]) -> Dict[str, pd.DataFr
     
     return dfs
 
+def convert_minute_sleep_to_daily(dfs: Dict[str, pd.DataFrame]):
+    """
+    Converts 'minuteSleep_merged_3_12' to daily sleep format like 'sleepDay_merged_4_12'
+    and removes unnecessary columns.
+
+    Args:
+        dfs (Dict[str, pd.DataFrame]): Dictionary of DataFrames.
+        
+    """
+    if "minuteSleep_merged_3_12" in dfs:
+        df_minute_sleep = dfs["minuteSleep_merged_3_12"].copy()
+        
+        df_minute_sleep["SleepDay"] = df_minute_sleep["date"]
+        
+        # Remove 'logId' column
+        df_minute_sleep.drop(columns=["logId"], inplace=True, errors="ignore")
+
+        # Compute TotalTimeInBed (Count all rows per Id, SleepDay)
+        sleep_summary = df_minute_sleep.groupby(["Id", "SleepDay"], as_index=False).size()
+        sleep_summary.rename(columns={"size": "TotalTimeInBed"}, inplace=True)
+
+        # Compute TotalMinutesAsleep (Count rows where 'value' == 1)
+        asleep_summary = df_minute_sleep[df_minute_sleep["value"] == 1].groupby(["Id", "SleepDay"], as_index=False).size()
+        asleep_summary.rename(columns={"size": "TotalMinutesAsleep"}, inplace=True)
+
+        # Merge both summaries
+        sleep_summary = sleep_summary.merge(asleep_summary, on=["Id", "SleepDay"], how="left")
+        sleep_summary.fillna(0, inplace=True)  # Replace NaN with 0 (for cases where no sleep was recorded)
+
+        # Ensure column order matches 'sleepDay_merged_4_12'
+        sleep_summary = sleep_summary[["Id", "SleepDay", "TotalMinutesAsleep", "TotalTimeInBed"]]
+
+        # Save as 'sleepDay_merged_3_12' for consistency
+        dfs["sleepDay_merged_3_12"] = sleep_summary
+
+    # Remove unnecessary DataFrames
+    dfs.pop("minuteSleep_merged_3_12", None)
+    dfs.pop("minuteSleep_merged_4_12", None)
+
 def main():
     """Main function to execute the Fitbit data cleaning process."""
     logging.info("Fitbit Data Cleaning Started.")
@@ -174,6 +213,9 @@ def main():
 
     # Standardize all date columns into yyyy-mm-dd format
     dfs = standardize_date_format(dfs)
+
+    # Convert sleep data from minute format to day format
+    convert_minute_sleep_to_daily(dfs)
 
     logging.info("Standardized data: %s", dfs)
 
