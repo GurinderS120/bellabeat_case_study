@@ -216,6 +216,33 @@ def convert_second_heartrate_to_daily(dfs: Dict[str, pd.DataFrame]) -> None:
             # Remove the old file
             del dfs[old_key]
 
+def convert_minute_weight_to_daily(dfs: Dict[str, pd.DataFrame]) -> None:
+    """
+    Cleans and aggregates 'weightLogInfo_merged_3_12' and 'weightLogInfo_merged_4_12'
+    by removing unnecessary columns and averaging weight-related metrics per day.
+
+    Modifies dfs in-place.
+
+    Args:
+        dfs (Dict[str, pd.DataFrame]): Dictionary of DataFrames.
+    """
+    for key in ["weightLogInfo_merged_3_12", "weightLogInfo_merged_4_12"]:
+        if key in dfs:
+            df = dfs[key].copy()
+            
+            # Drop unnecessary columns
+            df.drop(columns=["Fat", "IsManualReport", "LogId"], inplace=True, errors="ignore")
+
+            # Aggregate to get daily averages
+            df = df.groupby(["Id", "Date"], as_index=False).agg(
+                AvgWeightKg=("WeightKg", "mean"),
+                AvgWeightPounds=("WeightPounds", "mean"),
+                AverageBMI=("BMI", "mean")
+            )
+
+            # Save back to dfs
+            dfs[key] = df
+
 def main():
     """Main function to execute the Fitbit data cleaning process."""
     logging.info("Fitbit Data Cleaning Started.")
@@ -249,6 +276,9 @@ def main():
 
     # Convert hearrate data from seconds format to day format
     convert_second_heartrate_to_daily(dfs)
+
+    # Convert weight data from minute format to day format
+    convert_minute_weight_to_daily(dfs)
 
     logging.info("Standardized data: %s", dfs)
 
