@@ -5,6 +5,7 @@ This script:
 2. Identifies and loads only relevant CSV files.
 3. Standardizes date and time formats.
 4. Converts time-based data (minute & second-level) to a daily summary.
+5. Merges related datasets and consolidates them into a unified dataset.
 
 """
 
@@ -251,6 +252,88 @@ def convert_minute_weight_to_daily(dfs: Dict[str, pd.DataFrame]) -> None:
             # Save back to dfs
             dfs[key] = df
 
+def merge_activity_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
+    """
+    Merges daily activity data from both time periods and drops unnecessary columns.
+
+    Args:
+        dfs (Dict[str, pd.DataFrame]): Dictionary containing DataFrames.
+
+    Returns:
+        pd.DataFrame: Merged daily activity dataset with unnecessary columns removed.
+    """
+    activity_merged = pd.concat([dfs["dailyActivity_merged_3_12"], dfs["dailyActivity_merged_4_12"]], ignore_index=True)
+
+    return activity_merged
+
+def merge_sleep_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
+    """
+    Merges sleep data from both time periods and drops unnecessary columns.
+
+    Args:
+        dfs (Dict[str, pd.DataFrame]): Dictionary containing DataFrames.
+
+    Returns:
+        pd.DataFrame: Merged sleep dataset with unnecessary columns removed.
+    """
+    sleep_merged = pd.concat([dfs["sleepDay_merged_3_12"], dfs["sleepDay_merged_4_12"]], ignore_index=True)
+
+    sleep_merged.drop(columns=["TotalSleepRecords"], errors="ignore", inplace=True)
+
+    return sleep_merged
+
+def merge_weight_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
+    """
+    Merges weight data from both time periods and drops unnecessary columns.
+
+    Args:
+        dfs (Dict[str, pd.DataFrame]): Dictionary containing DataFrames.
+
+    Returns:
+        pd.DataFrame: Merged weight dataset with unnecessary columns removed.
+    """
+    weight_merged = pd.concat([dfs["weightLogInfo_merged_3_12"], dfs["weightLogInfo_merged_4_12"]], ignore_index=True)
+
+    return weight_merged
+
+def merge_heart_rate_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
+    """
+    Merges heart rate data from both time periods and drops unnecessary columns.
+
+    Args:
+        dfs (Dict[str, pd.DataFrame]): Dictionary containing DataFrames.
+
+    Returns:
+        pd.DataFrame: Merged heart rate dataset with unnecessary columns removed.
+    """
+    heartrate_merged = pd.concat([dfs["heartrateDay_merged_3_12"], dfs["heartrateDay_merged_4_12"]], ignore_index=True)
+
+    return heartrate_merged
+
+def merge_all_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
+    """
+    Merges all related datasets and consolidates them into a unified dataset.
+
+    Args:
+        dfs (Dict[str, pd.DataFrame]): Dictionary containing DataFrames.
+
+    Returns:
+        pd.DataFrame: Fully merged dataset containing daily activity, sleep, weight, and heart rate data.
+    """
+    # Merge related datasets
+    activity_data = merge_activity_data(dfs)
+    sleep_data = merge_sleep_data(dfs)
+    weight_data = merge_weight_data(dfs)
+    heartrate_data = merge_heart_rate_data(dfs)
+
+    # Merge everything together into one DataFrame
+    merged_df = activity_data \
+        .merge(sleep_data, on=["Id", "Date"], how="left") \
+        .merge(weight_data, on=["Id", "Date"], how="left") \
+        .merge(heartrate_data, on=["Id", "Date"], how="left")
+    
+    return merged_df
+
 def main():
     """Main function to execute the Fitbit data cleaning process."""
     logging.info("Fitbit Data Cleaning Started.")
@@ -288,7 +371,13 @@ def main():
     # Convert weight data from minute format to day format
     convert_minute_weight_to_daily(dfs)
 
-    logging.info("Standardized data: %s", dfs)
+    # Merge related datasets and combine them into one DataFrame
+    merged_df = merge_all_data(dfs)
+
+    # Save the final dataset for analysis
+    merged_df.to_csv(f"{PROCESSED_DATA_DIR}/merged_pre_cleaned_data.csv", index=False)
+
+    # logging.info("Standardized data: %s", merged_df)
 
 if __name__ == "__main__":
     main()
