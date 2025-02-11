@@ -131,8 +131,7 @@ def load_csv_files(file_list: list) -> dict:
 
 def standardize_date_format(dfs: Dict[str, pd.DataFrame]) -> None:
     """
-    Converts the second column (assumed to be a date column) in each DataFrame 
-    to 'yyyy-mm-dd' format.
+    Renames the second column in each DataFrame to 'Date' and standardizes it to 'yyyy-mm-dd' format.
 
     Modifies dfs in-place.
 
@@ -141,7 +140,13 @@ def standardize_date_format(dfs: Dict[str, pd.DataFrame]) -> None:
     """
     for _, df in dfs.items():
         if df.shape[1] > 1:  # Ensure at least two columns exist
-            date_col = df.columns[1]  # Get the second column (index 1)
+            date_col = df.columns[1]  # Get the date column (index 1)
+
+            # Rename to 'Date' if it's not already named 'Date'
+            if date_col != "Date":
+                df.rename(columns={date_col: "Date"}, inplace=True)
+                date_col = "Date"
+
             df[date_col] = pd.to_datetime(df[date_col], errors="coerce")
             df[date_col] = df[date_col].dt.strftime("%Y-%m-%d")
 
@@ -156,26 +161,26 @@ def convert_minute_sleep_to_daily(dfs: Dict[str, pd.DataFrame]) -> None:
     """
     if "minuteSleep_merged_3_12" in dfs:
         df_minute_sleep = dfs["minuteSleep_merged_3_12"].copy()
-        
-        df_minute_sleep["SleepDay"] = df_minute_sleep["date"]
-        
+
+        date_col = df_minute_sleep.columns[1]  # Get the date column (index 1)
+
         # Remove 'logId' column
         df_minute_sleep.drop(columns=["logId"], inplace=True, errors="ignore")
 
         # Compute TotalTimeInBed (Count all rows per Id, SleepDay)
-        sleep_summary = df_minute_sleep.groupby(["Id", "SleepDay"], as_index=False).size()
+        sleep_summary = df_minute_sleep.groupby(["Id", date_col], as_index=False).size()
         sleep_summary.rename(columns={"size": "TotalTimeInBed"}, inplace=True)
 
         # Compute TotalMinutesAsleep (Count rows where 'value' == 1)
-        asleep_summary = df_minute_sleep[df_minute_sleep["value"] == 1].groupby(["Id", "SleepDay"], as_index=False).size()
+        asleep_summary = df_minute_sleep[df_minute_sleep["value"] == 1].groupby(["Id", date_col], as_index=False).size()
         asleep_summary.rename(columns={"size": "TotalMinutesAsleep"}, inplace=True)
 
         # Merge both summaries
-        sleep_summary = sleep_summary.merge(asleep_summary, on=["Id", "SleepDay"], how="left")
+        sleep_summary = sleep_summary.merge(asleep_summary, on=["Id", date_col], how="left")
         sleep_summary.fillna(0, inplace=True)  # Replace NaN with 0 (for cases where no sleep was recorded)
 
         # Ensure column order matches 'sleepDay_merged_4_12'
-        sleep_summary = sleep_summary[["Id", "SleepDay", "TotalMinutesAsleep", "TotalTimeInBed"]]
+        sleep_summary = sleep_summary[["Id", date_col, "TotalMinutesAsleep", "TotalTimeInBed"]]
 
         # Save as 'sleepDay_merged_3_12' for consistency
         dfs["sleepDay_merged_3_12"] = sleep_summary
@@ -204,8 +209,10 @@ def convert_second_heartrate_to_daily(dfs: Dict[str, pd.DataFrame]) -> None:
         if old_key in dfs:
             df = dfs[old_key].copy()
             
+            date_col = df.columns[1]  # Get the date column (index 1)
+
             # Aggregate to get the daily average heart rate per user
-            df = df.groupby(["Id", "Time"], as_index=False).agg(
+            df = df.groupby(["Id", date_col], as_index=False).agg(
                 AverageHeartRate=("Value", "mean")
             )
 
@@ -228,12 +235,14 @@ def convert_minute_weight_to_daily(dfs: Dict[str, pd.DataFrame]) -> None:
     for key in ["weightLogInfo_merged_3_12", "weightLogInfo_merged_4_12"]:
         if key in dfs:
             df = dfs[key].copy()
+
+            date_col = df.columns[1]  # Get the date column (index 1)
             
             # Drop unnecessary columns
             df.drop(columns=["Fat", "IsManualReport", "LogId"], inplace=True, errors="ignore")
 
             # Aggregate to get daily averages
-            df = df.groupby(["Id", "Date"], as_index=False).agg(
+            df = df.groupby(["Id", date_col], as_index=False).agg(
                 AvgWeightKg=("WeightKg", "mean"),
                 AvgWeightPounds=("WeightPounds", "mean"),
                 AverageBMI=("BMI", "mean")
