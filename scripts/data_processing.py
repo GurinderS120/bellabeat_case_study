@@ -7,6 +7,7 @@ This script:
 4. Standardizes column names.
 5. Converts time-based data (minute & second-level) to a daily summary.
 6. Merges related datasets and consolidates them into a unified dataset.
+7. Implements a data cleaning pipeline to address issues like missing values.
 
 """
 
@@ -488,7 +489,7 @@ def clean_data(df: pd.DataFrame) -> pd.DataFrame:
     Returns:
         pd.DataFrame: The fully cleaned dataset.
     """
-    
+
     df = handle_duplicates(df)
     df = handle_missing_values(df)
     df = flag_weight_tracking(df)
