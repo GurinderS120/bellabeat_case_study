@@ -391,6 +391,24 @@ def handle_outliers(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
+def add_derived_metrics(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Adds new columns for additional insights.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: The dataset with derived metrics added.
+    """
+    df = df.copy()
+
+    df["SleepEfficiency"] = np.where(df["TotalTimeInBed"] > 0, df["TotalMinutesAsleep"] / df["TotalTimeInBed"], np.nan)
+
+    df["VeryActiveRatio"] = np.where(df["TotalDistance"] > 0, df["VeryActiveDistance"] / df["TotalDistance"], np.nan)
+
+    return df
+
 def merge_all_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
     """
     Merges all related datasets and consolidates them into a unified dataset.
