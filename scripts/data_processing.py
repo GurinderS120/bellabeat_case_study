@@ -409,6 +409,20 @@ def add_derived_metrics(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
+def drop_unnecessary_columns(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Drops columns that are redundant or not useful for analysis.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: The dataset with unnecessary columns removed.
+    """
+    df.drop(columns=["SedentaryActiveDistance", "AvgWeightPounds"], errors="ignore", inplace=True)
+
+    return df
+
 def merge_all_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
     """
     Merges all related datasets and consolidates them into a unified dataset.
