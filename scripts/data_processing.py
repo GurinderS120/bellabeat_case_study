@@ -438,6 +438,24 @@ def handle_duplicates(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
+def handle_negative_values(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Ensures all numerical values are non-negative by replacing negative values with NaN.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: The dataset with no negative values.
+    """
+    # Identify all numerical columns
+    numeric_cols = df.select_dtypes(include=["number"]).columns
+
+    # Replace negative values with NaN
+    df[numeric_cols] = df[numeric_cols].apply(lambda col: col.map(lambda x: np.nan if x < 0 else x))
+
+    return df
+
 def merge_all_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
     """
     Merges all related datasets and consolidates them into a unified dataset.
