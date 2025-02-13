@@ -566,7 +566,10 @@ def main():
     merged_df = merge_all_data(dfs)
 
     # Save the final dataset for analysis
-    merged_df.to_csv(f"{PROCESSED_DATA_DIR}/merged_pre_cleaned_data.csv", index=False)
+    # merged_df.to_csv(f"{PROCESSED_DATA_DIR}/merged_pre_cleaned_data.csv", index=False)
+
+    # Clean the merged dataset
+    cleaned_df = clean_data(merged_df)
 
     # logging.info("Standardized data: %s", merged_df)
 
