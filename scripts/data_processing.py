@@ -469,11 +469,34 @@ def round_decimal_values(df: pd.DataFrame) -> pd.DataFrame:
 
     # Identify numerical columns excluding 'Id' and binary flag columns
     exclude_cols = ["Id", "HasSleepData", "HasWeightData", "HasBMIData", "HasHeartRateData"]
-    
+
     decimal_cols = df.select_dtypes(include=["number"]).columns.difference(exclude_cols)
 
     # Round only the selected decimal columns
     df[decimal_cols] = df[decimal_cols].round(2)
+
+    return df
+
+def clean_data(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Cleans the dataset by handling missing values, removing outliers,
+    adding derived metrics, and dropping unnecessary columns.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: The fully cleaned dataset.
+    """
+    
+    df = handle_duplicates(df)
+    df = handle_missing_values(df)
+    df = flag_weight_tracking(df)
+    df = handle_outliers(df)
+    df = add_derived_metrics(df)
+    df = drop_unnecessary_columns(df)
+    df = handle_negative_values(df)
+    df = round_decimal_values(df)
 
     return df
 
