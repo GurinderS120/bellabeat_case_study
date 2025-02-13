@@ -342,6 +342,24 @@ def handle_missing_values(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
+def flag_weight_tracking(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Flags users who track weight and BMI:
+        HasWeightData -> 1 if the user has AvgWeightKg, else 0.
+        HasBMIData -> 1 if the user has AvgBMI, else 0.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: The dataset with tracking flags.
+    """
+    df["HasWeightData"] = df["AvgWeightKg"].notna().astype(int)
+    df["HasBMIData"] = df["AvgBMI"].notna().astype(int)
+
+    return df
+
+
 def merge_all_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
     """
     Merges all related datasets and consolidates them into a unified dataset.
