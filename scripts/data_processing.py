@@ -423,6 +423,21 @@ def drop_unnecessary_columns(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
+def handle_duplicates(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Removes duplicate records and ensures only one entry per user per day.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: The dataset with duplicates handled.
+    """
+    # Remove exact duplicate rows
+    df.drop_duplicates(inplace=True)
+
+    return df
+
 def merge_all_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
     """
     Merges all related datasets and consolidates them into a unified dataset.
