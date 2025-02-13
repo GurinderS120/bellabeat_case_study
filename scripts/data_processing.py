@@ -359,6 +359,37 @@ def flag_weight_tracking(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
+def handle_outliers(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Detects and removes rows with extreme outliers using the IQR method.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: The dataset with outlier rows removed.
+    """
+
+   # Define key columns for outlier removal (excluding less critical ones)
+    outlier_columns = ["TotalSteps", "Calories", "VeryActiveMinutes", "TotalDistance"]
+
+    for col in outlier_columns:
+        Q1 = df[col].quantile(0.25)
+        Q3 = df[col].quantile(0.75)
+        IQR = Q3 - Q1
+        lower_bound = Q1 - (1.5 * IQR)
+        upper_bound = Q3 + (1.5 * IQR)
+
+        # Remove entire rows where any column has extreme outlier values
+        df = df[(df[col].isna()) | ((df[col] >= lower_bound) & (df[col] <= upper_bound))]
+
+    # Remove biologically implausible heart rate values
+    df = df[(df["AvgHeartRate"].isna()) | ((df["AvgHeartRate"] >= 30) & (df["AvgHeartRate"] <= 250))]
+
+    # Flag users who track heart rate data
+    df["HasHeartRateData"] = df["AvgHeartRate"].notna().astype(int)
+
+    return df
 
 def merge_all_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
     """
