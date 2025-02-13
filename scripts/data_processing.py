@@ -14,6 +14,7 @@ import os
 import glob
 import logging
 import pandas as pd
+import numpy as np
 from pathlib import Path
 from typing import Dict
 
@@ -310,6 +311,36 @@ def merge_heart_rate_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
     heartrate_merged = pd.concat([dfs["heartrateDay_merged_3_12"], dfs["heartrateDay_merged_4_12"]], ignore_index=True)
 
     return heartrate_merged
+
+def handle_missing_values(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Handles missing values by dropping essential missing rows and imputing others.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: The dataset with missing values handled.
+    """
+    # Drop rows only if essential data is missing (TotalSteps, Calories)
+    df.dropna(subset=["TotalSteps", "Calories"], inplace=True)
+    
+    # Flag users who track sleep data
+    df["HasSleepData"] = df["TotalMinutesAsleep"].notna().astype(int)
+
+    # Fill missing weight, BMI, and heart rate values with the user's average
+    df["AvgWeightKg"] = df["AvgWeightKg"].fillna(df.groupby("Id")["AvgWeightKg"].transform("mean"))
+
+    df["AvgBMI"] = df["AvgBMI"].fillna(df.groupby("Id")["AvgBMI"].transform("mean"))
+
+    df["AvgHeartRate"] = df["AvgHeartRate"].fillna(df.groupby("Id")["AvgHeartRate"].transform("mean"))
+
+    # Fill missing Calories based on Calories per Step ratio
+    avg_calories_per_step = df["Calories"].sum() / df["TotalSteps"].sum()
+    
+    df["Calories"].fillna(df["TotalSteps"] * avg_calories_per_step)
+
+    return df
 
 def merge_all_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
     """
