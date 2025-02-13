@@ -456,6 +456,27 @@ def handle_negative_values(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
+def round_decimal_values(df: pd.DataFrame) -> pd.DataFrame:
+    """
+    Rounds all numerical columns to 2 decimal places, except for 'Id' and binary flag columns.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: The dataset with rounded numerical values.
+    """
+
+    # Identify numerical columns excluding 'Id' and binary flag columns
+    exclude_cols = ["Id", "HasSleepData", "HasWeightData", "HasBMIData", "HasHeartRateData"]
+    
+    decimal_cols = df.select_dtypes(include=["number"]).columns.difference(exclude_cols)
+
+    # Round only the selected decimal columns
+    df[decimal_cols] = df[decimal_cols].round(2)
+
+    return df
+
 def merge_all_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
     """
     Merges all related datasets and consolidates them into a unified dataset.
