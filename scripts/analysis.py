@@ -60,3 +60,14 @@ def segment_users_by_activity(df: pd.DataFrame) -> pd.DataFrame:
 
     return df
 
+def compare_activity_vs_calories(df: pd.DataFrame) -> pd.DataFrame:
+    """Compares activity level against average calories burned.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: Average calories burned per activity level.
+    """
+    return df.groupby("ActivityLevel")["Calories"].mean()
+
