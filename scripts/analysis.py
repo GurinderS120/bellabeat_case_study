@@ -71,3 +71,16 @@ def compare_activity_vs_calories(df: pd.DataFrame) -> pd.DataFrame:
     """
     return df.groupby("ActivityLevel")["Calories"].mean()
 
+def summarize_sleep(df: pd.DataFrame) -> pd.DataFrame:
+    """Summarizes key sleep metrics.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: Summary statistics for sleep-related columns.
+    """
+    sleep_columns = ["TotalMinutesAsleep", "TotalTimeInBed", "SleepEfficiency"]
+
+    return df[sleep_columns].describe()
+
