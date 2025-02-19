@@ -119,3 +119,14 @@ def segment_users_by_sleep_tracking(df: pd.DataFrame) -> pd.Series:
     """
     return df["HasSleepData"].value_counts(normalize=True) * 100
 
+def compare_sleep_vs_activity(df: pd.DataFrame) -> pd.DataFrame:
+    """Compares sleep duration against activity levels.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: Average sleep duration per activity level.
+    """
+    return df.groupby("ActivityLevel")["TotalMinutesAsleep"].mean()
+
