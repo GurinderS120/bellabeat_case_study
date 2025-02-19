@@ -143,3 +143,28 @@ def summarize_heart_rate(df: pd.DataFrame) -> pd.DataFrame:
 
     return df[heart_rate_columns].describe()
 
+def visualize_heart_rate_distribution(df: pd.DataFrame) -> None:
+    """Generates visualizations for heart rate distribution.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+    """
+    _, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+    # Histogram for AvgHeartRate
+    sns.histplot(df["AvgHeartRate"], bins="auto", kde=True, ax=axes[0])
+
+    axes[0].set_title("Distribution of Average Heart Rate")
+    axes[0].set_xlabel("Avg Heart Rate (bpm)")
+    axes[0].set_ylabel("Frequency")
+
+    # Boxplot for AvgHeartRate
+    sns.boxplot(x=df["AvgHeartRate"], ax=axes[1],
+                medianprops={"color": "red", "linewidth": 2})
+    
+    axes[1].set_title("Boxplot of Average Heart Rate")
+    axes[1].set_xlabel("Avg Heart Rate (bpm)")
+
+    plt.tight_layout()
+    plt.show()
+
