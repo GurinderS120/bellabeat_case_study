@@ -168,3 +168,14 @@ def visualize_heart_rate_distribution(df: pd.DataFrame) -> None:
     plt.tight_layout()
     plt.show()
 
+def segment_users_by_heart_rate_tracking(df: pd.DataFrame) -> pd.Series:
+    """Categorizes users based on whether they track heart rate.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.Series: Percentage of users who track heart rate vs. those who don’t.
+    """
+    return df["HasHeartRateData"].value_counts(normalize=True) * 100
+
