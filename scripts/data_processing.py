@@ -573,6 +573,12 @@ def main():
     # Clean the merged dataset
     cleaned_df = clean_data(merged_df)
 
+    # Analyze the cleaned dataset
+    # analyze_data(cleaned_df)
+
+    # Generate marketing visuals
+    generate_marketing_visuals(cleaned_df)
+
     # logging.info("Standardized data: %s", merged_df)
 
 if __name__ == "__main__":
