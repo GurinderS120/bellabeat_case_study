@@ -228,3 +228,17 @@ def visualize_weight_distribution(df: pd.DataFrame) -> None:
     plt.tight_layout()
     plt.show()
 
+def segment_users_by_weight_tracking(df: pd.DataFrame) -> dict:
+    """Categorizes users based on whether they track weight and BMI.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        dict: Percentage of users who track weight and BMI.
+    """
+    return {
+        "Weight Tracking": df["HasWeightData"].value_counts(normalize=True) * 100,
+        "BMI Tracking": df["HasBMIData"].value_counts(normalize=True) * 100
+    }
+
