@@ -40,3 +40,23 @@ def visualize_activity_distribution(df: pd.DataFrame) -> None:
     plt.tight_layout()
     plt.show()
 
+def segment_users_by_activity(df: pd.DataFrame) -> pd.DataFrame:
+    """Categorizes users into activity levels based on step count.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: The dataset with an added ActivityLevel column.
+    """
+    def categorize_activity(steps):
+        if steps >= 10000:
+            return "Highly Active"
+        if steps >= 5000:
+            return "Moderately Active"
+        return "Low Activity"
+
+    df["ActivityLevel"] = df["TotalSteps"].apply(categorize_activity)
+
+    return df
+
