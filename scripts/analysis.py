@@ -1,3 +1,14 @@
+"""Fitbit Data Analysis Script.
+
+This script:
+1. Summarizes key health metrics, including activity, sleep, heart rate, and weight.
+2. Segments users based on activity, sleep tracking, and other key behaviors.
+3. Compares relationships between different health metrics (e.g., sleep vs. activity).
+4. Generates visualizations to identify trends and support marketing insights.
+5. Runs a comprehensive analysis pipeline to extract meaningful insights from the cleaned dataset.
+
+"""
+
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
