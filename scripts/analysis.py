@@ -190,3 +190,16 @@ def compare_heart_rate_vs_activity(df: pd.DataFrame) -> pd.DataFrame:
     """
     return df.groupby("ActivityLevel")["AvgHeartRate"].mean()
 
+def summarize_weight(df: pd.DataFrame) -> pd.DataFrame:
+    """Summarizes key weight and BMI metrics.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: Summary statistics for weight-related columns.
+    """
+    weight_columns = ["AvgWeightKg", "AvgBMI"]
+
+    return df[weight_columns].describe()
+
