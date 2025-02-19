@@ -108,3 +108,14 @@ def visualize_sleep_distribution(df: pd.DataFrame) -> None:
     plt.tight_layout()
     plt.show()
 
+def segment_users_by_sleep_tracking(df: pd.DataFrame) -> pd.Series:
+    """Categorizes users based on whether they track sleep.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.Series: Percentage of users who track sleep vs. those who don’t.
+    """
+    return df["HasSleepData"].value_counts(normalize=True) * 100
+
