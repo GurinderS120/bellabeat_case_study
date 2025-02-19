@@ -179,3 +179,14 @@ def segment_users_by_heart_rate_tracking(df: pd.DataFrame) -> pd.Series:
     """
     return df["HasHeartRateData"].value_counts(normalize=True) * 100
 
+def compare_heart_rate_vs_activity(df: pd.DataFrame) -> pd.DataFrame:
+    """Compares average heart rate against activity levels.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: Average heart rate per activity level.
+    """
+    return df.groupby("ActivityLevel")["AvgHeartRate"].mean()
+
