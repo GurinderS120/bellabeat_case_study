@@ -18,6 +18,8 @@ import pandas as pd
 import numpy as np
 from pathlib import Path
 from typing import Dict
+from analysis import generate_marketing_visuals
+from analysis import analyze_data
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
