@@ -1,6 +1,3 @@
-# Ignore virtual environment
-venv/
-
 # Ignore data files (optional, if you don’t want to upload raw data)
 data/raw/
 data/processed/
@@ -10,3 +7,54 @@ data/processed/
 
 # Ignore the sandbox folder
 sandbox/
+
+# Ignore Python compiled files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Ignore virtual environments
+venv/
+env/
+
+# Ignore package manager dependencies
+pip-wheel-metadata/
+*.egg-info/
+dist/
+build/
+
+# Ignore logs and temporary files
+*.log
+*.tmp
+*.swp
+*.swo
+
+# Ignore system files
+.DS_Store
+Thumbs.db
+
+# Ignore dataset files (if needed)
+*.csv
+*.tsv
+*.json
+*.xlsx
+*.parquet
+*.feather
+*.h5
+*.hdf5
+
+# Ignore large data files (optional)
+*.zip
+*.tar.gz
+*.rar
+
+# Ignore machine learning artifacts (if using ML)
+*.pkl
+*.joblib
+*.h5
+*.onnx
+model/
+
+# Ignore Jupyter Notebook output (if necessary)
+**/.ipynb_checkpoints
