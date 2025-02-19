@@ -203,3 +203,28 @@ def summarize_weight(df: pd.DataFrame) -> pd.DataFrame:
 
     return df[weight_columns].describe()
 
+def visualize_weight_distribution(df: pd.DataFrame) -> None:
+    """Generates visualizations for weight and BMI distribution.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+    """
+    _, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+    # Histogram for AvgWeightKg
+    sns.histplot(df["AvgWeightKg"], bins="auto", kde=True, ax=axes[0])
+
+    axes[0].set_title("Distribution of Avg Weight (kg)")
+    axes[0].set_xlabel("Avg Weight (kg)")
+    axes[0].set_ylabel("Frequency")
+
+    # Boxplot for AvgBMI
+    sns.boxplot(x=df["AvgBMI"], ax=axes[1],
+                medianprops={"color": "red", "linewidth": 2})
+    
+    axes[1].set_title("Boxplot of BMI")
+    axes[1].set_xlabel("BMI")
+
+    plt.tight_layout()
+    plt.show()
+
