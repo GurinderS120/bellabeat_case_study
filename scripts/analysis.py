@@ -298,3 +298,80 @@ def generate_marketing_visuals(df: pd.DataFrame) -> None:
     plt.tight_layout()
     plt.show()
 
+def analyze_data(df: pd.DataFrame) -> None:
+    """Runs the full analysis pipeline for user activity tracking.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+    """
+
+    # Activity Tracking Analysis
+    activity_summary = summarize_activity(df)
+    df = segment_users_by_activity(df)
+    activity_vs_calories = compare_activity_vs_calories(df)
+
+    visualize_activity_distribution(df)
+    
+    # Display results
+    print("Activity Summary:")
+    print(activity_summary)
+
+    print("\nActivity Level vs Calories:")
+    print(activity_vs_calories)
+
+    # Sleep Tracking Analysis
+    sleep_summary = summarize_sleep(df)
+    sleep_tracking_segments = segment_users_by_sleep_tracking(df)
+    sleep_vs_activity = compare_sleep_vs_activity(df)
+    
+    visualize_sleep_distribution(df)
+
+    # Display results
+    print("Sleep Summary:")
+    print(sleep_summary)
+
+    print("\nSleep Tracking Segments:")
+    print(sleep_tracking_segments)
+
+    print("\nSleep vs Activity:")
+    print(sleep_vs_activity)
+
+    # Heart Rate Tracking Analysis
+    heart_rate_summary = summarize_heart_rate(df)
+    heart_rate_tracking_segments = segment_users_by_heart_rate_tracking(df)
+    heart_rate_vs_activity = compare_heart_rate_vs_activity(df)
+
+    visualize_heart_rate_distribution(df)
+
+    # Display results
+    print("Heart Rate Summary:")
+    print(heart_rate_summary)
+
+    print("\nHeart Rate Tracking Segments:")
+    print(heart_rate_tracking_segments)
+
+    print("\nHeart Rate Tracking Segments:")
+    print(heart_rate_vs_activity)
+
+    # Weight Tracking Analysis
+    weight_summary = summarize_weight(df)
+    weight_tracking_segments = segment_users_by_weight_tracking(df)
+    weight_vs_engagement = compare_weight_tracking_vs_engagement(df)
+
+    visualize_weight_distribution(df)
+
+    # Display results
+    print("Weight Summary")
+    print(weight_summary)
+
+    print("\nWeight Tracking Segments")
+    print(weight_tracking_segments["Weight Tracking"])
+
+    print("\nBMI Tracking Segments")
+    print(weight_tracking_segments["BMI Tracking"])
+
+    print("\nWeight vs Activity")
+    print(weight_vs_engagement["Weight vs Activity"])
+
+    print("\nWeight vs Sleep")
+    print(weight_vs_engagement["Weight vs Sleep"])
