@@ -130,3 +130,16 @@ def compare_sleep_vs_activity(df: pd.DataFrame) -> pd.DataFrame:
     """
     return df.groupby("ActivityLevel")["TotalMinutesAsleep"].mean()
 
+def summarize_heart_rate(df: pd.DataFrame) -> pd.DataFrame:
+    """Summarizes key heart rate metrics.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        pd.DataFrame: Summary statistics for heart rate-related columns.
+    """
+    heart_rate_columns = ["AvgHeartRate"]
+
+    return df[heart_rate_columns].describe()
+
