@@ -256,3 +256,45 @@ def compare_weight_tracking_vs_engagement(df: pd.DataFrame) -> dict:
         "Weight vs Sleep": df.groupby("HasWeightData")["TotalMinutesAsleep"].mean()
     }
 
+def generate_marketing_visuals(df: pd.DataFrame) -> None:
+    """Generates key visualizations to support marketing recommendations.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+    """
+    _, axes = plt.subplots(2, 2, figsize=(14, 10))
+
+    # 1️. Pie Chart: Percentage of Users Tracking Each Metric
+    tracking_types = {
+        "Activity Tracking": df["TotalSteps"].notna().sum(),
+        "Sleep Tracking": df["HasSleepData"].sum(),
+        "Heart Rate Tracking": df["HasHeartRateData"].sum(),
+        "Weight Tracking": df["HasWeightData"].sum()
+    }
+    axes[0, 0].pie(tracking_types.values(), labels=tracking_types.keys(), autopct="%1.1f%%", colors=["blue", "green", "red", "orange"])
+    axes[0, 0].set_title("Percentage of Users Tracking Each Metric")
+
+    # 2️. Scatter Plot: Steps vs. Calories Burned
+    sns.regplot(x=df["TotalSteps"], y=df["Calories"], ax=axes[0, 1], scatter_kws={"alpha": 0.5}, line_kws={"color": "red"})
+    axes[0, 1].set_title("Steps vs. Calories Burned")
+    axes[0, 1].set_xlabel("Total Steps")
+    axes[0, 1].set_ylabel("Calories Burned")
+
+    # 3️. Bar Chart: Tracking Engagement by User Group (Number of Metrics Tracked)
+    df["TrackingCount"] = df[["HasSleepData", "HasHeartRateData", "HasWeightData"]].sum(axis=1)
+    tracking_groups = df["TrackingCount"].value_counts().sort_index()
+    tracking_groups.plot(kind="bar", color=["red", "orange", "green", "blue"], ax=axes[1, 0])
+    axes[1, 0].set_title("Tracking Engagement by User Group")
+    axes[1, 0].set_xlabel("Number of Metrics Tracked")
+    axes[1, 0].set_ylabel("Number of Users")
+
+    # 4️. Histogram: Tracking Consistency Per User
+    user_tracking_consistency = df.groupby("Id")[["HasSleepData", "HasHeartRateData", "HasWeightData"]].mean()
+    sns.histplot(user_tracking_consistency.mean(axis=1), bins=10, kde=True, ax=axes[1, 1])
+    axes[1, 1].set_title("Tracking Consistency Per User")
+    axes[1, 1].set_xlabel("Average Tracking Frequency")
+    axes[1, 1].set_ylabel("Number of Users")
+
+    plt.tight_layout()
+    plt.show()
+
