@@ -242,3 +242,17 @@ def segment_users_by_weight_tracking(df: pd.DataFrame) -> dict:
         "BMI Tracking": df["HasBMIData"].value_counts(normalize=True) * 100
     }
 
+def compare_weight_tracking_vs_engagement(df: pd.DataFrame) -> dict:
+    """Compares weight tracking engagement with other activity metrics.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+
+    Returns:
+        dict: Average steps and sleep minutes grouped by weight tracking.
+    """
+    return {
+        "Weight vs Activity": df.groupby("HasWeightData")["TotalSteps"].mean(),
+        "Weight vs Sleep": df.groupby("HasWeightData")["TotalMinutesAsleep"].mean()
+    }
+
