@@ -84,3 +84,27 @@ def summarize_sleep(df: pd.DataFrame) -> pd.DataFrame:
 
     return df[sleep_columns].describe()
 
+def visualize_sleep_distribution(df: pd.DataFrame) -> None:
+    """Generates visualizations for sleep tracking distribution.
+
+    Args:
+        df (pd.DataFrame): The dataset.
+    """
+    _, axes = plt.subplots(1, 2, figsize=(12, 5))
+
+    # Histogram for Total Minutes Asleep
+    sns.histplot(df["TotalMinutesAsleep"], bins="auto", kde=True, ax=axes[0])
+    axes[0].set_title("Distribution of Total Minutes Asleep")
+    axes[0].set_xlabel("Total Minutes Asleep")
+    axes[0].set_ylabel("Frequency")
+
+    # Boxplot for Total Minutes Asleep
+    sns.boxplot(x=df["TotalMinutesAsleep"], ax=axes[1],
+                medianprops={"color": "red", "linewidth": 2})
+    
+    axes[1].set_title("Boxplot of Total Minutes Asleep")
+    axes[1].set_xlabel("Total Minutes Asleep")
+
+    plt.tight_layout()
+    plt.show()
+
