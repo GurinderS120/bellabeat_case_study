@@ -133,25 +133,25 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ### **1️⃣ Encourage More Comprehensive Tracking Through the Bellabeat App**
 
-📌 **Insight:** **55% of users don’t track sleep, and 57% don’t track heart rate** → A major opportunity to increase engagement.\
+📌 **Insight:** **55% of users don’t track sleep, and 57% don’t track heart rate** → A major opportunity to increase engagement.
 
 ✅ **Strategy:** Bellabeat can use the **app to send reminders & challenges**, gamify tracking (badges, streaks), and introduce **weekly progress reports**.
 
 ### **2️⃣ Promote the Benefits of Sleep Tracking in the Bellabeat App**
 
-📌 **Insight:** Sleep tracking is **significantly underutilized**.\
+📌 **Insight:** Sleep tracking is **significantly underutilized**.
 
 ✅ **Strategy:** Bellabeat should **educate users** on the benefits of sleep tracking and send **in-app nudges** for users who track activity but not sleep.
 
 ### **3️⃣ Use the Bellabeat App to Convert Engaged Users to Membership**
 
-📌 **Insight:** Users tracking multiple metrics may not know how to interpret their data.\
+📌 **Insight:** Users tracking multiple metrics may not know how to interpret their data.
 
 ✅ **Strategy:** Offer a **free trial of Bellabeat Membership** to users who track **2+ health metrics consistently**, encouraging deeper engagement.
 
 ### **4️⃣ Data Limitations & Future Recommendations**
 
-📌 **Insight:** The dataset is **outdated (2016)** and only covers **two months**.\
+📌 **Insight:** The dataset is **outdated (2016)** and only covers **two months**.
 
 ✅ **Strategy:** Bellabeat should collect **real-time & continuous data** to understand evolving user behavior.
 
