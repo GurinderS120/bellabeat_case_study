@@ -551,8 +551,20 @@ def merge_all_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
     
     return merged_df
 
-def main():
-    """Main function to execute the Fitbit data cleaning process."""
+def handle_data_processing():
+    """
+    Executes the full Fitbit data processing pipeline.
+
+    This function:
+    - Compares file structures to detect common and unique files.
+    - Loads relevant data files and standardizes date formats.
+    - Converts time-based data (minute- and second-level) into daily summaries.
+    - Merges related datasets into a consolidated DataFrame.
+    - Cleans the merged dataset to handle missing values, outliers, and inconsistencies.
+
+    Args:
+        None.
+    """
     logging.info("Fitbit Data Cleaning Started.")
 
     # Compare file structures
@@ -584,14 +596,3 @@ def main():
 
     # Clean the merged dataset
     cleaned_df = clean_data(merged_df)
-
-    # Analyze the cleaned dataset
-    # analyze_data(cleaned_df)
-
-    # Generate marketing visuals
-    generate_marketing_visuals(cleaned_df)
-
-    # logging.info("Standardized data: %s", merged_df)
-
-if __name__ == "__main__":
-    main()
