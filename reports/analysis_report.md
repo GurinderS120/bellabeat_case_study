@@ -23,6 +23,7 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ---
 
+<br>
 ## 📂 2. PREPARE Phase: Understanding the Data
 
 ### **Data Source:**
@@ -38,6 +39,7 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ---
 
+<br>
 ## 🔄 3. PROCESS Phase: Data Cleaning & Preparation
 
 ### **Key Cleaning Steps:**
@@ -58,6 +60,7 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ---
 
+<br>
 ## 📊 4. ANALYZE Phase: Identifying Key Insights
 
 ### **1️⃣ Activity Tracking Engagement**
@@ -93,11 +96,13 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ---
 
+<br>
 ## 🎯 5. SHARE Phase: Presenting Insights with Visuals
 
 📊 **Key Visualizations Used:**
 
 1️⃣ **Pie Chart:** Percentage of users tracking each metric.
+
 ![Pie Chart](images/pie_chart.png)
 
 📌 **Purpose:** Identifies **engagement levels** in different health-tracking categories.
@@ -107,6 +112,7 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 - These **tracking gaps suggest opportunities** to encourage more comprehensive health monitoring.
 
 2️⃣ **Scatter Plot:** Steps vs. Calories Burned.
+
 ![Scatter Plot](images/scatter_plot.png)
 
 📌 **Purpose:** Shows **correlation between activity levels and calorie expenditure**.
@@ -116,6 +122,7 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 - Reinforces the **importance of activity tracking for effective calorie management**.
 
 3️⃣ **Histogram:** Tracking consistency per user.
+
 ![Histogram](images/histogram.png)
 
 📌 **Purpose:** Analyzes **how frequently users log data**.
@@ -126,30 +133,36 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ---
 
+<br>
 ## 🚀 6. ACT Phase: Marketing Recommendations
 
 ### **1️⃣ Encourage More Comprehensive Tracking Through the Bellabeat App**
 
 📌 **Insight:** **55% of users don’t track sleep, and 57% don’t track heart rate** → A major opportunity to increase engagement.\
+
 ✅ **Strategy:** Bellabeat can use the **app to send reminders & challenges**, gamify tracking (badges, streaks), and introduce **weekly progress reports**.
 
 ### **2️⃣ Promote the Benefits of Sleep Tracking in the Bellabeat App**
 
 📌 **Insight:** Sleep tracking is **significantly underutilized**.\
+
 ✅ **Strategy:** Bellabeat should **educate users** on the benefits of sleep tracking and send **in-app nudges** for users who track activity but not sleep.
 
 ### **3️⃣ Use the Bellabeat App to Convert Engaged Users to Membership**
 
 📌 **Insight:** Users tracking multiple metrics may not know how to interpret their data.\
+
 ✅ **Strategy:** Offer a **free trial of Bellabeat Membership** to users who track **2+ health metrics consistently**, encouraging deeper engagement.
 
 ### **4️⃣ Data Limitations & Future Recommendations**
 
 📌 **Insight:** The dataset is **outdated (2016)** and only covers **two months**.\
+
 ✅ **Strategy:** Bellabeat should collect **real-time & continuous data** to understand evolving user behavior.
 
 ---
 
+<br>
 ## 📂 Project Deliverables
 
 ✅ **[README.md](../README.md)** – High-level project summary.  
