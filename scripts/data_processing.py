@@ -105,14 +105,6 @@ def categorize_files(file_list: list) -> tuple:
     files_to_keep = [f for f in file_list if f.name in KEEP_FILES]
     files_to_remove = [f for f in file_list if f.name in REMOVE_FILES]
 
-    logging.info("Keeping These Files:")
-    for file in files_to_keep:
-        logging.info(file)
-
-    logging.info("\nRemoving These Files:")
-    for file in files_to_remove:
-        logging.info(file)
-
     return files_to_keep, files_to_remove
 
 def load_data() -> dict:
@@ -568,19 +560,6 @@ def handle_data_processing() -> pd.DataFrame:
     Returns:
         pd.DataFrame: Fully cleaned dataset ready to be used in data analysis.
     """
-    logging.info("Fitbit Data Cleaning Started.")
-
-    # Compare file structures
-    folder_comparison = compare_data_folders(FOLDER1, FOLDER2)
-
-    logging.info("\nCommon Files in Both Folders:")
-    logging.info("\n".join(folder_comparison["common_files"]) if folder_comparison["common_files"] else "None")
-
-    logging.info("\nFiles Only in Folder 1:")
-    logging.info("\n".join(folder_comparison["unique_to_folder1"]) if folder_comparison["unique_to_folder1"] else "None")
-
-    logging.info("\nFiles Only in Folder 2:")
-    logging.info("\n".join(folder_comparison["unique_to_folder2"]) if folder_comparison["unique_to_folder2"] else "None")
 
     # Load the necessary data
     dfs = load_data()
