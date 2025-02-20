@@ -551,7 +551,7 @@ def merge_all_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
     
     return merged_df
 
-def handle_data_processing():
+def handle_data_processing() -> pd.DataFrame:
     """
     Executes the full Fitbit data processing pipeline.
 
