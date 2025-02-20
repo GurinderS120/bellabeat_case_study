@@ -567,26 +567,14 @@ def main():
     logging.info("\nFiles Only in Folder 2:")
     logging.info("\n".join(folder_comparison["unique_to_folder2"]) if folder_comparison["unique_to_folder2"] else "None")
 
-    # List all files
-    all_files = list_all_files(RAW_DATA_DIR)
-
-    # Categorize files into 'keep' and 'remove'
-    files_to_keep, _ = categorize_files(all_files)
-
-    # Load only the necessary files
-    dfs = load_csv_files(files_to_keep)
+    # Load the necessary data
+    dfs = load_data()
 
     # Standardize all date columns into yyyy-mm-dd format
     standardize_date_format(dfs)
 
-    # Convert sleep data from minute format to day format
-    convert_minute_sleep_to_daily(dfs)
-
-    # Convert heartrate data from seconds format to day format
-    convert_second_heartrate_to_daily(dfs)
-
-    # Convert weight data from minute format to day format
-    convert_minute_weight_to_daily(dfs)
+    # Convert time-based data (minute & second-level) to a daily summary
+    convert_time_data_to_daily(dfs)
 
     # Merge related datasets and combine them into one DataFrame
     merged_df = merge_all_data(dfs)
