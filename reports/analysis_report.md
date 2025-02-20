@@ -17,8 +17,8 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ### **Key Objectives:**
 
-✅ Identify tracking behaviors (activity, sleep, heart rate, weight).
-✅ Determine gaps in engagement (which metrics are underutilized?).
+✅ Identify tracking behaviors (activity, sleep, heart rate, weight).\
+✅ Determine gaps in engagement (which metrics are underutilized?).\
 ✅ Recommend strategies to drive tracking engagement & Bellabeat Membership adoption.
 
 ---
@@ -27,13 +27,13 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ### **Data Source:**
 
-- Dataset comes from [`**Kaggle**`](https://www.kaggle.com/datasets/arashnic/fitbit/data), tracking **30 Fitbit users** over **two months (March-May 2016)**.
+- Dataset comes from [`Kaggle`](https://www.kaggle.com/datasets/arashnic/fitbit/data), tracking **30 Fitbit users** over **two months (March-May 2016)**.
 - Includes **activity, sleep, heart rate, and weight data**.
 
 ### **Data Limitations:**
 
-⚠️ **Data is from 2016**, so behavior may have changed.
-⚠️ **Only two months of data**, making long-term engagement patterns unclear.
+⚠️ **Data is from 2016**, so behavior may have changed.\
+⚠️ **Only two months of data**, making long-term engagement patterns unclear.\
 ⚠️ **Small sample size (30 users)**, limiting generalizability.
 
 ---
@@ -42,11 +42,11 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ### **Key Cleaning Steps:**
 
-✅ Standardized all date formats to **yyyy-mm-dd**.
-✅ Aggregated **minute/second-level data** to a **daily summary**.
-✅ Removed unnecessary columns & renamed inconsistent column names.
-✅ Handled missing values & flagged users who didn’t track certain metrics.
-✅ Removed extreme outliers (e.g., unrealistic step counts).
+✅ Standardized all date formats to **yyyy-mm-dd**.\
+✅ Aggregated **minute/second-level data** to a **daily summary**.\
+✅ Removed unnecessary columns & renamed inconsistent column names.\
+✅ Handled missing values & flagged users who didn’t track certain metrics.\
+✅ Removed extreme outliers (e.g., unrealistic step counts).\
 
 📂 **Final Cleaned Data Includes:**
 
@@ -129,22 +129,22 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ### **1️⃣ Encourage More Comprehensive Tracking Through the Bellabeat App**
 
-📌 **Insight:** **55% of users don’t track sleep, and 57% don’t track heart rate** → A major opportunity to increase engagement.
+📌 **Insight:** **55% of users don’t track sleep, and 57% don’t track heart rate** → A major opportunity to increase engagement.\
 ✅ **Strategy:** Bellabeat can use the **app to send reminders & challenges**, gamify tracking (badges, streaks), and introduce **weekly progress reports**.
 
 ### **2️⃣ Promote the Benefits of Sleep Tracking in the Bellabeat App**
 
-📌 **Insight:** Sleep tracking is **significantly underutilized**.
+📌 **Insight:** Sleep tracking is **significantly underutilized**.\
 ✅ **Strategy:** Bellabeat should **educate users** on the benefits of sleep tracking and send **in-app nudges** for users who track activity but not sleep.
 
 ### **3️⃣ Use the Bellabeat App to Convert Engaged Users to Membership**
 
-📌 **Insight:** Users tracking multiple metrics may not know how to interpret their data.
+📌 **Insight:** Users tracking multiple metrics may not know how to interpret their data.\
 ✅ **Strategy:** Offer a **free trial of Bellabeat Membership** to users who track **2+ health metrics consistently**, encouraging deeper engagement.
 
 ### **4️⃣ Data Limitations & Future Recommendations**
 
-📌 **Insight:** The dataset is **outdated (2016)** and only covers **two months**.
+📌 **Insight:** The dataset is **outdated (2016)** and only covers **two months**.\
 ✅ **Strategy:** Bellabeat should collect **real-time & continuous data** to understand evolving user behavior.
 
 ---

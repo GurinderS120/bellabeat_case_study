@@ -10,7 +10,7 @@ Bellabeat wants to understand **how consumers use non-Bellabeat smart devices** 
 
 ## **📊 Data Source**
 
-The dataset used in this analysis comes from [`**Kaggle**`](https://www.kaggle.com/datasets/arashnic/fitbit/data), which aggregates Fitbit data. It includes user tracking for **activity, sleep, heart rate, and weight** across two separate time periods in 2016.
+The dataset used in this analysis comes from [`Kaggle`](https://www.kaggle.com/datasets/arashnic/fitbit/data), which aggregates Fitbit data. It includes user tracking for **activity, sleep, heart rate, and weight** across two separate time periods in 2016.
 
 ## **🛠️ Analysis Workflow**
 
