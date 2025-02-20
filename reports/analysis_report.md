@@ -23,7 +23,6 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ---
 
-<br>
 ## 📂 2. PREPARE Phase: Understanding the Data
 
 ### **Data Source:**
@@ -39,7 +38,6 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ---
 
-<br>
 ## 🔄 3. PROCESS Phase: Data Cleaning & Preparation
 
 ### **Key Cleaning Steps:**
@@ -60,7 +58,6 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ---
 
-<br>
 ## 📊 4. ANALYZE Phase: Identifying Key Insights
 
 ### **1️⃣ Activity Tracking Engagement**
@@ -96,7 +93,6 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ---
 
-<br>
 ## 🎯 5. SHARE Phase: Presenting Insights with Visuals
 
 📊 **Key Visualizations Used:**
@@ -133,7 +129,6 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ---
 
-<br>
 ## 🚀 6. ACT Phase: Marketing Recommendations
 
 ### **1️⃣ Encourage More Comprehensive Tracking Through the Bellabeat App**
@@ -162,7 +157,6 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ---
 
-<br>
 ## 📂 Project Deliverables
 
 ✅ **[README.md](../README.md)** – High-level project summary.  

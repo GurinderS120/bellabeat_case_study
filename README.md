@@ -3,17 +3,14 @@
 ## **📌 Project Overview**
 
 This project analyzes **Fitbit user data** to provide **marketing insights for Bellabeat** a company specializing in **women’s health-focused smart devices**. The goal is to understand how consumers use non-Bellabeat wearables and leverage these insights to improve Bellabeat’s engagement strategy, particularly for the **Bellabeat App & Membership**.
-<br>
 
 ## **🔍 Business Task**
 
 Bellabeat wants to understand **how consumers use non-Bellabeat smart devices** and apply these insights to **enhance its marketing strategy**. The goal is to identify engagement trends and recommend strategies to **increase user adoption of Bellabeat’s products and membership services**.
-<br>
 
 ## **📊 Data Source**
 
 The dataset used in this analysis comes from <a href="https://www.kaggle.com/datasets/arashnic/fitbit/data" target="_blank">Kaggle</a>, which aggregates Fitbit data. It includes user tracking for **activity, sleep, heart rate, and weight** across two separate time periods in 2016.
-<br>
 
 ## **🛠️ Analysis Workflow**
 
@@ -27,7 +24,6 @@ This project follows the **six-phase data analysis process:**
 6️⃣ **Act** → Provide **marketing recommendations** based on the analysis.
 
 🔗 **For a full breakdown of each phase, see** [`analysis_report.md`](./reports/analysis_report.md)
-<br>
 
 ## **📈 Key Findings & Marketing Recommendations**
 
@@ -44,7 +40,6 @@ This project follows the **six-phase data analysis process:**
 2️⃣ **Promote Sleep Tracking** → Educate users on how sleep impacts fitness & wellness.\
 3️⃣ **Convert Engaged Users to Membership** → Offer free trials & in-app prompts.\
 4️⃣ **Collect More Recent Data** → The dataset is from 2016; continuous tracking data would improve insights.
-<br>
 
 ## **📦 Project Structure**
 
@@ -69,7 +64,6 @@ This project follows the **six-phase data analysis process:**
 ├── requirements.txt        # Required Python libraries
 ```
 
-<br>
 ## **🚀 How to Run the Project**
 
 1️⃣ **Clone this repository:**
@@ -97,5 +91,4 @@ python scripts/main.py
 
 ---
 
-<br>
 🚀 **For more details, see the full report in** [`analysis_report.md`](./reports/analysis_report.md)
