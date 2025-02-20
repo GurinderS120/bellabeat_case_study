@@ -11,6 +11,8 @@ This script:
 
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.gridspec as gridspec
+import numpy as np
 import seaborn as sns
 
 def summarize_activity(df: pd.DataFrame) -> pd.DataFrame:
@@ -273,32 +275,79 @@ def generate_marketing_visuals(df: pd.DataFrame) -> None:
     Args:
         df (pd.DataFrame): The dataset.
     """
-    _, axes = plt.subplots(2, 2, figsize=(14, 10))
+    fig = plt.figure(figsize=(20, 25))
+    spec = gridspec.GridSpec(3, 2, width_ratios=[2, 2], height_ratios=[1, 1, 1.2])
 
-    # 1️. Pie Chart: Percentage of Users Tracking Each Metric
+    # Descriptions for each visualization
+    descriptions = [
+        "This pie chart shows the percentage of users tracking each metric (Activity, Sleep, Heart Rate, Weight). "
+        "It highlights gaps in engagement and potential areas for improvement.",
+        
+        "This scatter plot illustrates the positive correlation between step count and calories burned. "
+        "Users who track their activity tend to burn more calories, supporting the importance of activity tracking.",
+        
+        "This histogram shows how consistently users log their data. It helps identify whether users track metrics daily, "
+        "occasionally, or rarely, which can guide strategies for increasing engagement."
+    ]
+
+    # 1. Pie Chart: Percentage of Users Tracking Each Metric
+    ax1 = fig.add_subplot(spec[0, 0])
     tracking_types = {
         "Activity Tracking": df["TotalSteps"].notna().sum(),
         "Sleep Tracking": df["HasSleepData"].sum(),
         "Heart Rate Tracking": df["HasHeartRateData"].sum(),
         "Weight Tracking": df["HasWeightData"].sum()
     }
-    axes[0, 0].pie(tracking_types.values(), labels=tracking_types.keys(), autopct="%1.1f%%", colors=["blue", "green", "red", "orange"])
-    axes[0, 0].set_title("Percentage of Users Tracking Each Metric")
+
+    colors = ["blue", "green", "red", "orange"]
+    
+    ax1.pie(
+        tracking_types.values(), 
+        labels=tracking_types.keys(), 
+        autopct="%1.1f%%", 
+        colors=colors, 
+        radius=1.6
+    )
+
+    # Add a legend to the right of the pie chart
+    ax1.legend(
+        tracking_types.keys(),
+        loc="center left",  # Position it to the left of the bounding box
+        bbox_to_anchor=(1.8, 0.8),
+        fontsize=10,
+        frameon=False
+    )
+
+    ax1.set_title("Percentage of Users Tracking Each Metric", fontweight="bold", pad=40)
+
+    ax2 = fig.add_subplot(spec[0, 1])
+    ax2.text(0, 0.5, descriptions[0], fontsize=14, verticalalignment="center", horizontalalignment="left", wrap=True)
+    ax2.axis("off")
 
     # 2️. Scatter Plot: Steps vs. Calories Burned
-    sns.regplot(x=df["TotalSteps"], y=df["Calories"], ax=axes[0, 1], scatter_kws={"alpha": 0.5}, line_kws={"color": "red"})
-    axes[0, 1].set_title("Steps vs. Calories Burned")
-    axes[0, 1].set_xlabel("Total Steps")
-    axes[0, 1].set_ylabel("Calories Burned")
+    ax3 = fig.add_subplot(spec[1, 0])
+    sns.regplot(x=df["TotalSteps"], y=df["Calories"], ax=ax3, scatter_kws={"alpha": 0.5}, line_kws={"color": "red"})
+    ax3.set_title("Steps vs. Calories Burned", fontweight="bold", pad=20)
+    ax3.set_xlabel("Total Steps")
+    ax3.set_ylabel("Calories Burned")
 
-    # 3. Histogram: Tracking Consistency Per User
+    ax4 = fig.add_subplot(spec[1, 1])
+    ax4.text(0, 0.5, descriptions[1], fontsize=14, verticalalignment="center", horizontalalignment="left", wrap=True)
+    ax4.axis("off")
+
+    # 3️. Histogram: Tracking Consistency Per User
+    ax5 = fig.add_subplot(spec[2, 0])
     user_tracking_consistency = df.groupby("Id")[["HasSleepData", "HasHeartRateData", "HasWeightData"]].mean()
-    sns.histplot(user_tracking_consistency.mean(axis=1), bins=10, kde=True, ax=axes[1, 0])
-    axes[1, 0].set_title("Tracking Consistency Per User")
-    axes[1, 0].set_xlabel("Average Tracking Frequency")
-    axes[1, 0].set_ylabel("Number of Users")
+    sns.histplot(user_tracking_consistency.mean(axis=1), bins=10, kde=True, ax=ax5)
+    ax5.set_title("Tracking Consistency Per User", fontweight="bold", pad=20)
+    ax5.set_xlabel("Average Tracking Frequency")
+    ax5.set_ylabel("Number of Users")
 
-    plt.tight_layout()
+    ax6 = fig.add_subplot(spec[2, 1])
+    ax6.text(0, 0.5, descriptions[2], fontsize=14, verticalalignment="center", horizontalalignment="left", wrap=True)
+    ax6.axis("off")
+
+    plt.subplots_adjust(hspace=1.2)
     plt.show()
 
 def analyze_data(df: pd.DataFrame) -> None:
