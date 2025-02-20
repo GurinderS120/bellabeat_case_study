@@ -564,6 +564,9 @@ def handle_data_processing():
 
     Args:
         None.
+    
+    Returns:
+        pd.DataFrame: Fully cleaned dataset ready to be used in data analysis.
     """
     logging.info("Fitbit Data Cleaning Started.")
 
@@ -596,3 +599,5 @@ def handle_data_processing():
 
     # Clean the merged dataset
     cleaned_df = clean_data(merged_df)
+
+    return cleaned_df
