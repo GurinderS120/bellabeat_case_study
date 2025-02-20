@@ -11,7 +11,7 @@ This script:
 
 import pandas as pd
 import matplotlib.pyplot as plt
-import matplotlib.gridspec as gridspec
+from matplotlib import gridspec
 import seaborn as sns
 
 def summarize_activity(df: pd.DataFrame) -> pd.DataFrame:
