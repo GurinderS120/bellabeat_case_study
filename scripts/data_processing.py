@@ -264,6 +264,23 @@ def convert_minute_weight_to_daily(dfs: Dict[str, pd.DataFrame]) -> None:
             # Save back to dfs
             dfs[key] = df
 
+def convert_time_data_to_daily(dfs: Dict[str, pd.DataFrame]) -> None:
+    """
+    Converts time-based data (minute and second-level) into daily summaries.
+
+    Args:
+        dfs (Dict[str, pd.DataFrame]): Dictionary of DataFrames to be modified.
+    """
+    
+    # Convert sleep data from minute format to day format
+    convert_minute_sleep_to_daily(dfs)
+
+    # Convert heartrate data from seconds format to day format
+    convert_second_heartrate_to_daily(dfs)
+
+    # Convert weight data from minute format to day format
+    convert_minute_weight_to_daily(dfs)
+
 def merge_activity_data(dfs: Dict[str, pd.DataFrame]) -> pd.DataFrame:
     """
     Merges daily activity data from both time periods and drops unnecessary columns.
