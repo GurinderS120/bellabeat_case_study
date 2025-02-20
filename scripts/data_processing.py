@@ -115,17 +115,24 @@ def categorize_files(file_list: list) -> tuple:
 
     return files_to_keep, files_to_remove
 
-def load_csv_files(file_list: list) -> dict:
-    """Loads CSV files into a dictionary of pandas DataFrames.
+def load_data() -> dict:
+    """Loads relevant CSV files into a dictionary of pandas DataFrames.
 
     Args:
-        file_list (list): List of CSV file paths to load.
+        None.
 
     Returns:
         dict: Dictionary where keys are modified filenames and values are DataFrames.
     """
+
+    # List all files
+    all_files = list_all_files(RAW_DATA_DIR)
+
+    # Categorize files into 'keep' and 'remove'
+    files_to_keep, _ = categorize_files(all_files)
+
     dfs = {}
-    for file in file_list:
+    for file in files_to_keep:
         folder_name = file.parts[-2]  # Get the parent folder name
         time_period = "3_12" if "3.12.16-4.11.16" in folder_name else "4_12"
         
