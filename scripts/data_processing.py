@@ -12,10 +12,10 @@ This script:
 """
 
 import logging
-import pandas as pd
-import numpy as np
 from pathlib import Path
 from typing import Dict
+import pandas as pd
+import numpy as np
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
