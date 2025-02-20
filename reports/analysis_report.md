@@ -27,7 +27,7 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ### **Data Source:**
 
-- Dataset comes from [`Kaggle`](https://www.kaggle.com/datasets/arashnic/fitbit/data), tracking **30 Fitbit users** over **two months (March-May 2016)**.
+- Dataset comes from <a href="https://www.kaggle.com/datasets/arashnic/fitbit/data" target="_blank">Kaggle</a>, tracking **30 Fitbit users** over **two months (March-May 2016)**.
 - Includes **activity, sleep, heart rate, and weight data**.
 
 ### **Data Limitations:**
@@ -42,11 +42,12 @@ Bellabeat specializes in **women’s health-focused smart devices** and seeks to
 
 ### **Key Cleaning Steps:**
 
+✅ Removed duplicate rows.\
 ✅ Standardized all date formats to **yyyy-mm-dd**.\
 ✅ Aggregated **minute/second-level data** to a **daily summary**.\
 ✅ Removed unnecessary columns & renamed inconsistent column names.\
 ✅ Handled missing values & flagged users who didn’t track certain metrics.\
-✅ Removed extreme outliers (e.g., unrealistic step counts).\
+✅ Removed extreme outliers (e.g., unrealistic step counts).
 
 📂 **Final Cleaned Data Includes:**
 
