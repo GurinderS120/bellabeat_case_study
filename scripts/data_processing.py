@@ -21,7 +21,13 @@ import numpy as np
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
 # Constants
-RAW_DATA_DIR = Path("data/raw/")
+
+# Moves two levels up (from scripts/ to root)
+PROJECT_ROOT = Path(__file__).resolve().parent.parent 
+
+# Define the raw data directory relative to the root
+RAW_DATA_DIR = PROJECT_ROOT / "data" / "raw"
+
 PROCESSED_DATA_DIR = Path("data/processed/")
 OUTPUT_FILE = PROCESSED_DATA_DIR / "merged_fitbit_data.csv"
 
